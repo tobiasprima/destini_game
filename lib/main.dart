@@ -57,7 +57,9 @@ class _StoryPageState extends State<StoryPage> {
                 child: TextButton(
                   onPressed: () {
                     var userChoice = 1;
-                    storyBrain.nextStory(userChoice);
+                    setState(() {
+                      storyBrain.nextStory(userChoice);
+                    });
                   },
                   style: TextButton.styleFrom(
                     primary: Colors.red,
@@ -75,20 +77,23 @@ class _StoryPageState extends State<StoryPage> {
               ),
               Expanded(
                 flex: 2,
-                //TODO: Step 26 - Use a Flutter Visibility Widget to wrap this FlatButton.
-                //TODO: Step 28 - Set the "visible" property of the Visibility Widget to equal the output from the buttonShouldBeVisible() method in the storyBrain.
-                child: TextButton(
-                  onPressed: () {
-                    var userChoice = 2;
-                    storyBrain.nextStory(userChoice);
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.blue,
-                  ),
-                  child: Text(
-                    storyBrain.getChoice2(),
-                    style: TextStyle(
-                      fontSize: 20.0,
+                child: Visibility(
+                  visible: storyBrain.buttonShouldBeVisible(),
+                  child: TextButton(
+                    onPressed: () {
+                      var userChoice = 2;
+                      setState(() {
+                        storyBrain.nextStory(userChoice);
+                      });
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.blue,
+                    ),
+                    child: Text(
+                      storyBrain.getChoice2(),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
                     ),
                   ),
                 ),
